@@ -1,8 +1,9 @@
 import java.util.Date;
 
 public class PosPago extends Assinante{
+	
 	private float assinatura;
-
+	
 	public PosPago(int numero, float assinatura) {
 		super(numero);
 		this.assinatura = assinatura;
