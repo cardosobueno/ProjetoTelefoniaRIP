@@ -1,19 +1,6 @@
 
-//<<<<<<<HEAD
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-public class Recarga {
-
-	private Date data;
-	private float valor;
-
-=======
 /*
- Recarga
+ Recarga  
 A classe Recarga possui 2 atributos:
 a) data: data da realização da recarga (objeto da classe GregorianCalendar);
 b) valor: valor em reais da recarga.
@@ -26,103 +13,68 @@ Recomenda-se usar a classe SimpleDateFormat para formatar a data no formato
 dd/MM/yyyy
 */
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
+import java.util.Objects;
 
 public class Recarga {
-
-	private Date data;
+	
 	private float valor;
-
-	private GregorianCalendar gc;
-
-	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+	private GregorianCalendar data;
+	static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	public Recarga() {
-
+	
 	}
-
-	>>>>>>>b8a3246754585378166e249dae6dc4ac2ec71508
-
-	public Recarga(Date data, float valor) {
-		super();
+	
+	public Recarga(GregorianCalendar data, float valor) {
+		
 		this.data = data;
 		this.valor = valor;
-<<<<<<< HEAD
-	}
-
-	public Date getData() {
-
-		return this.data;
-	}
-
-	public float getValor() {
-		return this.valor;
-	}
-
-	public String toString() {
-		// Teste do SimpleDateFormat
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar dt = new GregorianCalendar();
-		return sdf.format(dt.getTime()) + this.valor + this.data;
-	}
-
-	public Recarga(Date data) {
-		this.gc = new GregorianCalendar();
-		this.gc.setTime(data);
-		this.data = data;
-	}
-
-	public Recarga(String data) {
-		try {
-			this.gc = new GregorianCalendar();
-			this.gc.setTime(sdf.parse(data));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public Date getData() {
+	
+	}	
+	 	
+	public GregorianCalendar getData(){
+		
 		return data;
+		
 	}
-
-	public float getValor() {
+	
+	public float getValor(){
 		return valor;
 	}
-
-	public Date GregorianCalendargetData() {
-		return data;
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(data, valor);
+	}
+	
+	public static void imprimirDadosRecarga( GregorianCalendar data, float valor) {
+	
+		int ano = data.get(Calendar.YEAR);
+		int mes = data.get(Calendar.MONTH);
+		int dia = data.get(Calendar.DAY_OF_MONTH);
+		System.out.println("Data da recarga " + dia +"/"+mes+"/"+ ano);
+		System.out.println("Valor da recarga "+ valor);
 	}
 
 	@Override
 	public String toString() {
-		return "Data da Recarga: " + sdf.format(data) + " Valor da Recarga: " + valor;
+		return "Data da Recarga: " + sdf.format(data.getTime())
+			 + " Valor da Recarga: "+ valor;
+	}	
+	
+	public static void main(String[] args) {	
+	
+	GregorianCalendar gc = new GregorianCalendar();
+	Recarga rc = new Recarga(gc, 23);
+	//System.out.println(rc);
+	
+	System.out.println(gc.getTime());
+	
+	//System.out.println(sdf.format(gc.getTime()));
+	//imprimirDadosRecarga(gc,123);
 	}
 
-	public static void main(String[] args) throws ParseException 
-	{
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		try (Scanner sc = new Scanner(System.in)) {
-			//System.out.print("Insira data da recarga no formato (DD/MM/AAAA): ");
-			//Date data = sdf.parse(sc.next());
-			Date data = new Date();
-			
-
-			GregorianCalendar gc = new GregorianCalendar(); 
-			gc.setTime(data);
-			Recarga rc = new Recarga(data,123);
-			
-			//System.out.println(sdf.format(data));
-			System.out.println(rc);
-		}
-		
-		
-		
-	}
-
-	>>>>>>>b8a3246754585378166e249dae6dc4ac2ec71508
 }
