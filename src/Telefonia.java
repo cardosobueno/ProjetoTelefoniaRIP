@@ -2,13 +2,26 @@ import java.util.Scanner;
 
 public class Telefonia {
 
-	private int numPrePago;
-	private int numPospago;
-
+	private PrePago[] prePagos;
+	private Integer numPrePago;
+	private PosPago[] posPagos;
+	private Integer numPosPago;
+	
+	
 	public Telefonia() {
+		super();
+	
+		this.prePagos = new PrePago[numPrePago];
+		this.numPrePago = 20;
+		this.posPagos = new PosPago[numPospago];
+		this.numPospago = 20;
 	}
 
+	private int numPospago;
+	
+
 	public void cadastrarAssinante() {
+		
 
 	}
 
@@ -47,7 +60,31 @@ public class Telefonia {
 			op = s.nextInt();
 			switch (op) {
 			case 1:
-				System.out.println("Teste\n");
+				int option = 0;
+				System.out.println("Digite o tipo de assinante:\n1- Prepago\n2- Pospago");
+				System.out.println("Opção selecionada: ");
+				option = s.nextInt();
+				if (option == 1)
+				{
+					System.out.println("Digite seu nome: ");
+					String nm = s.next();
+					System.out.println("Digite seu cpf: ");
+					long c = s.nextLong();
+					System.out.println("Digite seu número de celular: ");
+					int num = s.nextInt();
+					Assinante assi = new Assinante(c, nm, num);
+					this.prePagos[-1] = new PrePago(c, nm, num);
+				}
+				if (option == 2)
+				{
+					System.out.println("Digite seu nome: ");
+					String nm = s.next();
+					System.out.println("Digite seu cpf: ");
+					long c = s.nextLong();
+					System.out.println("Digite seu número de celular: ");
+					int num = s.nextInt();
+					Assinante assi = new Assinante(c, nm, num);
+				}
 				break;
 			case 2:
 				System.out.println("Teste\n");
