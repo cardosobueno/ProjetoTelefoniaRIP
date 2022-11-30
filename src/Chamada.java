@@ -11,6 +11,10 @@ public class Chamada {
 	private Integer duracao;
 	static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
+	public Chamada() {
+		
+	}
+	
 	public Chamada(GregorianCalendar data, Integer duracao) {
 		super();
 		this.data = data;

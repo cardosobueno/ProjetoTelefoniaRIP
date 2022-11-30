@@ -4,9 +4,9 @@ public class PosPago extends Assinante{
 	
 	private float assinatura;
 	
-	public PosPago(long cpf, String nome, int numero, float assinatura, Integer numChamadas)
+	public PosPago(long cpf, String nome, int numero, float assinatura)
 	{
-		super(cpf, nome, numero, numChamadas);
+		super(cpf, nome, numero);
 		this.assinatura = assinatura;
 	}
 
@@ -40,7 +40,7 @@ public class PosPago extends Assinante{
 	
 	
 	public static void main(String[] args) {
-		PosPago p = new PosPago(1370180764,"Danillo Marcos Alves Viana",996403363,10f,10);
+		PosPago p = new PosPago(1370180764,"Danillo Marcos Alves Viana",996403363,3f);
 		
 		p.fazerChamada(new GregorianCalendar(2011,05,06),10);
 		p.fazerChamada(new GregorianCalendar(2011,05,06),14);

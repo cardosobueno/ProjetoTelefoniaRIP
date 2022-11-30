@@ -6,19 +6,22 @@ public class PrePago extends Assinante {
 	private Integer numRecargas;
 	private Recarga[] recargas;
 	
+	public PrePago() {
+		
+	}
 	
-	public PrePago(long cpf, String nome, int numero, Integer numChamadas, Integer numRecargas)
+	public PrePago(long cpf, String nome, int numero)
 	{
-		super(cpf, nome, numero, numChamadas);
+		super(cpf, nome, numero);
 		this.creditos = creditos;
-		this.numRecargas = numRecargas;
+		this.numRecargas = 30;
 		this.recargas = new Recarga[numRecargas];	
 	}
 	
 	
 	void fazerChamada(GregorianCalendar data, int duracao)
 	{	
-		if(this.creditos > 0 && this.numChamadas > 0 && duracao < this.creditos)
+		if(this.creditos > 0 && this.numChamadas > 0 && duracao <= this.creditos)
 		{ 
 			this.chamadas[this.numChamadas -1] = new Chamada(data, duracao);
 			this.numChamadas = this.numChamadas -1;
@@ -28,7 +31,7 @@ public class PrePago extends Assinante {
 	        {
 	            System.out.println("Não é possível realizar a chamada...");
 	        }
-	    }
+	 }
 	
 	public void recarregar(GregorianCalendar data, float valor) 
 	{
@@ -78,7 +81,8 @@ public class PrePago extends Assinante {
 
 	void imprimirFatura(int mes)
 	{
-	
+		Assinante ass = new Assinante(); 
+		System.out.println(ass);
 	
 	}
 
@@ -88,31 +92,32 @@ public class PrePago extends Assinante {
 		
 		
 
-		PrePago prep = new PrePago(1370180764,"Danillo Marcos Alves Viana",996403363,10,10);
-		prep.recarregar(new GregorianCalendar(2020,03,04),200);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);	
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-		prep.recarregar(new GregorianCalendar(2020,03,04),7);
-		prep.recarregar(new GregorianCalendar(2020,03,04),7);
-		prep.mostrarRecargas();
+		PrePago prep = new PrePago(1370180764,"Danillo Marcos Alves Viana",996403363);
+		prep.recarregar(new GregorianCalendar(2020,03,04),1000);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);	
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),7);
+//		prep.recarregar(new GregorianCalendar(2020,03,04),7);
+
+//		prep.mostrarRecargas();
 		
+//		prep.fazerChamada(new GregorianCalendar(2020,07,05),600);
 		prep.fazerChamada(new GregorianCalendar(2020,07,05),600);
-	
 		prep.mostrarChamadas();
 		System.out.println("Créditos: " + prep.creditos);
 		
-		
+		prep.imprimirFatura(1);
 		
 		}
 	
 	
-	
+
 	
 }
 
