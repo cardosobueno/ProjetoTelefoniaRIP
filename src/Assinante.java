@@ -9,7 +9,7 @@ public class Assinante {
     public Assinante() {	
     }
     public Assinante(long cpf, String nome, int numero) {
-    	this.numChamadas = 30;
+    	this.numChamadas = 25;
         this.chamadas = new Chamada[numChamadas];
         this.nome = nome;
         this.cpf = cpf;
@@ -24,6 +24,6 @@ public class Assinante {
 
     public String toString()
     {
-        return "Nome: " + this.nome + "; Cpf: " + this.cpf + "; Numero: " + this.numero + "; Chamadas: " + chamadas[numChamadas-1] + "; Número de chamadas: " + this.numChamadas;
+        return "Nome: " + this.nome + "; Cpf: " + this.cpf + "; Numero: " + this.numero + "; Chamadas: " + this.chamadas + "; Número de chamadas: " + this.numChamadas;
     }
 }
