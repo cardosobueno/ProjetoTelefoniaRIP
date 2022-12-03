@@ -15,7 +15,7 @@ public class Telefonia {
 	static SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Telefonia() {
-		
+
 		this.numPrePago = 25;
 		this.numPosPago = 25;
 		this.prePagos = new PrePago[numPrePago];
@@ -24,6 +24,7 @@ public class Telefonia {
 	}
 
 	public void cadastrarAssinante() {
+
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
 		System.out.println("Digite o tipo de assinante:\n1- Prepago\n2- Pospago");
@@ -84,6 +85,7 @@ public class Telefonia {
 	}
 
 	public void fazerChamada() throws ParseException {
+
 		Scanner s2 = new Scanner(System.in);
 		System.out.println("Digite o seu CPF: ");
 		long id = s2.nextLong();
@@ -98,9 +100,7 @@ public class Telefonia {
 			Date data = formatador.parse(s2.next());
 			gc.setTime(data);
 			PrePago prep = localizarPrePago(id);
-			prep.fazerChamada(gc,min);
-		
-		
+			prep.fazerChamada(gc, min);
 
 		} else if (escolha == 2) {
 			localizarPosPago(id);
@@ -111,8 +111,7 @@ public class Telefonia {
 			Date data = formatador.parse(s2.next());
 			gc.setTime(data);
 			PosPago posp = localizarPosPago(id);
-			posp.fazerChamada(gc,min);
-			
+			posp.fazerChamada(gc, min);
 
 		}
 
@@ -128,7 +127,7 @@ public class Telefonia {
 				GregorianCalendar gt = new GregorianCalendar();
 				System.out.println("Insira o Valor da Recarga: ");
 				float rc = s3.nextFloat();
-				System.out.print("Insira a Data da Recarga (DD/MM/AAAA): ");
+				System.out.println("Insira a Data da Recarga (DD/MM/AAAA): ");
 				Date data = formatador.parse(s3.next());
 				gt.setTime(data);
 				PrePago prep = localizarPrePago(id);
@@ -146,76 +145,92 @@ public class Telefonia {
 
 	private PrePago localizarPrePago(long cpf) {
 		for (int i = 0; i < this.prePagos.length; i++) {
-			if (this.prePagos[numPrePago].getCpf() == cpf) {
-				if (prePagos[i] != null) {
-
+			if (prePagos[i] != null) {
+				if (this.prePagos[i].getCpf() == cpf) {
+					return prePagos[i];
 				}
-			} else {
-				System.out.println("O CPF cadastrado não pertence a este tipo de assinatura.");
-				return null;
 			}
 		}
-		return prePagos[numPrePago];
+		return null;
 	}
 
 	private PosPago localizarPosPago(long cpf) {
 
 		for (int i = 0; i < this.posPagos.length; i++) {
-			if (this.posPagos[numPosPago].getCpf() == cpf) {
-				if (posPagos[i] != null) {
-
+			if (posPagos[i] != null) {
+				if (this.posPagos[i].getCpf() == cpf) {
+					return posPagos[i];
 				}
-			} else {
-				System.out.println("O CPF cadastrado não pertence a este tipo de assinatura.");
-				return null;
 			}
 		}
-		return posPagos[numPosPago];
+		return null;
 	}
 
 	public void imprimirFaturas() throws ParseException {
+
 		Scanner sc = new Scanner(System.in);
-		GregorianCalendar c = new GregorianCalendar();
-		System.out.print("Digite um mês para verificação do histórico:  ");
-		int m = sc.nextInt();
-		PrePago pr = new PrePago();
-		pr.imprimirFatura(m);
-		PosPago pp = new PosPago();
-		pp.imprimirFatura(m);
+		System.out.println("Digite o CPF do assinante que deseja visualizar a fatura:  ");
+		long id = sc.nextLong();
+		System.out.println("Informe o tipo da assinatura:\n1-Pré-pago\n2-Pós-pago\nSua escolha: ");
+		int escolha = sc.nextInt();
+
+		if (escolha == 1) {
+			localizarPrePago(id);
+			PrePago prep = localizarPrePago(id);
+			System.out.print("Digite um mês para verificação do histórico:  ");
+			int m = sc.nextInt();
+			System.out.println(prep);
+			prep.imprimirFatura(m - 1);
+
+		} else if (escolha == 2) {
+			localizarPosPago(id);
+			PosPago posp = localizarPosPago(id);
+			System.out.print("Digite um mês para verificação do histórico:  ");
+			int m = sc.nextInt();
+			posp.imprimirFatura(m - 1);
+		}
+
 	}
 
 	public static void main(String[] args) throws ParseException {
+
 		Telefonia tel = new Telefonia();
 		int op = 0;
 		do {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Bem-vindo! O que você deseja?\n");
-			System.out.println("1- Cadastrar assinante\n2- Listar assinante\n3- Fazer chamada");
-			System.out.println("4- Fazer recarga\n5- Imprimir faturas\n6- Sair\n");
-			System.out.println("Digite uma opção: ");
-			op = sc.nextInt();
-			switch (op) {
-			case 1:
-				tel.cadastrarAssinante();
-				break;
-			case 2:
-				tel.listarAssinante();
-				break;
-			case 3:
-				tel.fazerChamada();
-				break;
-			case 4:
-				tel.fazerRecarga();
-				break;
-			case 5:
-				tel.imprimirFaturas();
-				break;
-			case 6:
-				System.out.println("Obrigado por utilizar nosso serviço!\n");
-				break;
-			default:
-				System.out.println("Comando não definido no menu! Por favor, confira novamente...\n");
-				break;
+			try {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("Bem-vindo! O que você deseja?\n");
+				System.out.println("1- Cadastrar assinante\n2- Listar assinante\n3- Fazer chamada");
+				System.out.println("4- Fazer recarga\n5- Imprimir faturas\n6- Sair\n");
+				System.out.println("Digite uma opção: ");
+				op = sc.nextInt();
+				switch (op) {
+				case 1:
+					tel.cadastrarAssinante();
+					break;
+				case 2:
+					tel.listarAssinante();
+					break;
+				case 3:
+					tel.fazerChamada();
+					break;
+				case 4:
+					tel.fazerRecarga();
+					break;
+				case 5:
+					tel.imprimirFaturas();
+					break;
+				case 6:
+					System.out.println("Obrigado por utilizar nosso serviço!\n");
+					break;
+				default:
+					System.out.println("Comando não definido no menu! Por favor, confira novamente...\n");
+					break;
+				}
+			} catch (java.util.InputMismatchException ex) {
+				System.out.println("Insira um dado válido e tente novamente!!!");
+			} catch (java.lang.ArrayIndexOutOfBoundsException el) {
+				System.out.println("Insira um dado válido e tente novamente!!!");
 			}
 		} while (op != 6);
 
