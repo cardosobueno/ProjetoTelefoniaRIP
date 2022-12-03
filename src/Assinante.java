@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Assinante {
 
     private long cpf;
@@ -9,7 +11,7 @@ public class Assinante {
     public Assinante() {	
     }
     public Assinante(long cpf, String nome, int numero) {
-    	this.numChamadas = 25;
+    	this.numChamadas = 12;
         this.chamadas = new Chamada[numChamadas];
         this.nome = nome;
         this.cpf = cpf;
@@ -21,9 +23,11 @@ public class Assinante {
     {
         return this.cpf;
     }
+	@Override
+	public String toString() {
+		return "Assinante [cpf=" + cpf + ", nome=" + nome + ", numero=" + numero +"\n" + ", chamadas="+
+				 Arrays.toString(chamadas)+"\n" + ", numChamadas=" + numChamadas + "]";
+	}
 
-    public String toString()
-    {
-        return "Nome: " + this.nome + "; Cpf: " + this.cpf + "; Numero: " + this.numero + "; Chamadas: " + this.chamadas + "; Número de chamadas: " + this.numChamadas;
-    }
+    
 }

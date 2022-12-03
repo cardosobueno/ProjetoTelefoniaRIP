@@ -9,7 +9,6 @@ public class PrePago extends Assinante {
 	public PrePago() {
 		
 	}
-	
 	public PrePago(long cpf, String nome, int numero)
 	{
 		super(cpf, nome, numero);
@@ -17,22 +16,20 @@ public class PrePago extends Assinante {
 		this.numRecargas = 30;
 		this.recargas = new Recarga[numRecargas];	
 	}
-	
-	
 	void fazerChamada(GregorianCalendar data, int duracao)
 	{	
-		if(this.creditos > 0 && this.numChamadas > 0 && duracao <= this.creditos)
+		if(this.creditos > 0 && this.numChamadas > 0 && duracao < this.creditos)
 		{ 
 			this.chamadas[this.numChamadas -1] = new Chamada(data, duracao);
-			this.numChamadas = this.numChamadas -1;
-			this.creditos = this.creditos - (duracao * 1.45f);
+			this.numChamadas -= 1;
+			this.creditos -= (duracao * 1.45f);
+            System.out.println("Chamada realizada com sucesso!!!");
 	    }
 	    else 
 	        {
-	            System.out.println("Não é possível realizar a chamada...");
+	            System.out.println("Não é possível realizar a chamada!!!");
 	        }
 	 }
-	
 	public void recarregar(GregorianCalendar data, float valor) 
 	{
 		
@@ -45,79 +42,59 @@ public class PrePago extends Assinante {
 		else 
         {
             System.out.println("Não foi possível fazer recarga...");
-        }
+        }	
+	}
+	void imprimirFatura(int mes) {
 		
-	}
 	
-	public void mostrarChamadas() 
-	{
-		int c = 0;
-		for(int i =0; i < 10; i ++) 
-		{
-			if (this.chamadas[i] != null) 
-			{
-				System.out.println( this.chamadas[i]);
-				c = c + 1;
-			}
+		try {
+				for(int i =0; i < recargas.length; i ++) 
 			
-		}
-		System.out.println("Quantidade de chamadas disponíveis: " + (10 - c));
-	}
-	
-	public void mostrarRecargas() 
-	{
-		int c = 0;
-		for(int i =0; i < 10; i ++) 
-		{
-			if (this.recargas[i] != null) 
 			{
-				System.out.println( this.recargas[i]);
-				c = c + 1;
+				if (this.recargas[i] != null) 
+				{
+					System.out.println( this.recargas[i]);
+				}
 			}
-			
-		}
-		System.out.println("Quantidade de recargas disponíveis: " + (10 - c));
-	}
-
-	void imprimirFatura(int mes)
-	{
-		Assinante ass = new Assinante(); 
-		System.out.println(ass);
 	
+			for(int i =0; i <chamadas.length; i ++) 
+			{
+				if (this.chamadas[i] != null) 
+				{
+					System.out.println( this.chamadas[i]);
+				}
+				
+			}
+		}
+		 catch ( java.lang.ArrayIndexOutOfBoundsException ex) {
+		System.out.println("Você não pode fazer isso AMIGO!!!!");
 	}
-
+	}
+	
 
 
 	public static void main(String[] args) {	
-		
-		
+			
+		PrePago prep = new PrePago(123,"dan",123412);
 
-		PrePago prep = new PrePago(1370180764,"Danillo Marcos Alves Viana",996403363);
-		prep.recarregar(new GregorianCalendar(2020,03,04),1000);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);	
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),100);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),7);
-//		prep.recarregar(new GregorianCalendar(2020,03,04),7);
+		prep.recarregar(new GregorianCalendar(2020,03,04),1000);	
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);
+		prep.recarregar(new GregorianCalendar(2020,03,04),1000);	
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);	
+		prep.recarregar(new GregorianCalendar(2020,03,04),1000);	
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);
+		prep.fazerChamada(new GregorianCalendar(2020,07-1,05),6);
+		prep.recarregar(new GregorianCalendar(2020,03,04),1000);	
+		
+//		prep.imprimirFatura(1);
+		
+		Assinante ass = new Assinante(123,"nnn",23432);
+		System.out.println(ass);
 
-//		prep.mostrarRecargas();
-		
-//		prep.fazerChamada(new GregorianCalendar(2020,07,05),600);
-		prep.fazerChamada(new GregorianCalendar(2020,07,05),600);
-		prep.mostrarChamadas();
-		System.out.println("Créditos: " + prep.creditos);
-		
-		prep.imprimirFatura(1);
 		
 		}
-	
-	
 
-	
 }
 

@@ -1,6 +1,8 @@
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ public class Telefonia {
 	static SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Telefonia() {
-		super();
+		
 		this.numPrePago = 25;
 		this.numPosPago = 25;
 		this.prePagos = new PrePago[numPrePago];
@@ -62,9 +64,7 @@ public class Telefonia {
 				System.out.println();
 			}
 		}
-		else {
-			System.out.println("Digite uma opção válida!!\n");
-		}
+
 	}
 
 	public void listarAssinante() {
@@ -86,32 +86,34 @@ public class Telefonia {
 	public void fazerChamada() throws ParseException {
 		Scanner s2 = new Scanner(System.in);
 		System.out.println("Digite o seu CPF: ");
-		long cpf = s2.nextLong();
+		long id = s2.nextLong();
 		System.out.println("Informe o tipo da assinatura:\n1-Pré-pago\n2-Pós-pago\nSua escolha: ");
 		int escolha = s2.nextInt();
 		if (escolha == 1) {
-			localizarPrePago(cpf);
+			localizarPrePago(id);
 			GregorianCalendar gc = new GregorianCalendar();
 			System.out.println("Digite a Duração da Chamada (minutos): ");
 			int min = s2.nextInt();
 			System.out.print("Insira a Data da Chamada (DD/MM/AAAA): ");
 			Date data = formatador.parse(s2.next());
 			gc.setTime(data);
-			System.out.println(formatador.format(gc.getTime()));
-			Chamada ch = new Chamada(gc, min);
-			PrePago prep = new PrePago(02,"dad",66654); 
-			this.prePagos[numPosPago - 1].fazerChamada(gc, min);
+			PrePago prep = localizarPrePago(id);
+			prep.fazerChamada(gc,min);
+		
+		
 
 		} else if (escolha == 2) {
-			localizarPosPago(cpf);
+			localizarPosPago(id);
 			GregorianCalendar gc = new GregorianCalendar();
 			System.out.println("Digite a Duração da Chamada (minutos): ");
 			int min = s2.nextInt();
 			System.out.print("Insira a Data da Chamada (DD/MM/AAAA): ");
 			Date data = formatador.parse(s2.next());
 			gc.setTime(data);
-			System.out.println(formatador.format(gc.getTime()));
-			Chamada ch = new Chamada(gc, min);
+			PosPago posp = localizarPosPago(id);
+			posp.fazerChamada(gc,min);
+			
+
 		}
 
 	}
@@ -122,15 +124,16 @@ public class Telefonia {
 			System.out.println("Insira seu CPF: ");
 			long id = s3.nextLong();
 			if (localizarPrePago(id) != null) {
-				localizarPrePago(id);
+
 				GregorianCalendar gt = new GregorianCalendar();
 				System.out.println("Insira o Valor da Recarga: ");
 				float rc = s3.nextFloat();
 				System.out.print("Insira a Data da Recarga (DD/MM/AAAA): ");
 				Date data = formatador.parse(s3.next());
 				gt.setTime(data);
-				System.out.println(formatador.format(gt.getTime()));
-				Recarga r = new Recarga(gt, rc);
+				PrePago prep = localizarPrePago(id);
+				prep.recarregar(gt, rc);
+				System.out.println("Recarga realizada com sucesso!!!");
 
 			} else {
 				System.out.println("Seu CPF não localizado no sistema... Tente novamente!");
@@ -142,24 +145,26 @@ public class Telefonia {
 	}
 
 	private PrePago localizarPrePago(long cpf) {
-		for (int i = this.numPrePago; i >= 0; i--) {
-			if (this.prePagos[i].getCpf() == cpf) {
-				System.out.println(prePagos[i].getCpf() + " é um assinante pós-pago.");
+		for (int i = 0; i < this.prePagos.length; i++) {
+			if (this.prePagos[numPrePago].getCpf() == cpf) {
+				if (prePagos[i] != null) {
+
+				}
 			} else {
 				System.out.println("O CPF cadastrado não pertence a este tipo de assinatura.");
 				return null;
 			}
 		}
 		return prePagos[numPrePago];
-
 	}
 
 	private PosPago localizarPosPago(long cpf) {
 
-		for (int i = 0; i < this.numPosPago; i++) {
-			if (this.posPagos[i].getCpf() == cpf) {
-				System.out.println(posPagos[i].getCpf() + " é um assinante pré-pago.");
+		for (int i = 0; i < this.posPagos.length; i++) {
+			if (this.posPagos[numPosPago].getCpf() == cpf) {
+				if (posPagos[i] != null) {
 
+				}
 			} else {
 				System.out.println("O CPF cadastrado não pertence a este tipo de assinatura.");
 				return null;
@@ -171,12 +176,12 @@ public class Telefonia {
 	public void imprimirFaturas() throws ParseException {
 		Scanner sc = new Scanner(System.in);
 		GregorianCalendar c = new GregorianCalendar();
-		System.out.print("Digite a Data (DD/MM/YYYY): ");
-		Date data = formatador.parse(sc.next());
-		c.setTime(data);
-		System.out.println(formatador.format(data));
-		System.out.println(formatador.format(c.getTime()));
-
+		System.out.print("Digite um mês para verificação do histórico:  ");
+		int m = sc.nextInt();
+		PrePago pr = new PrePago();
+		pr.imprimirFatura(m);
+		PosPago pp = new PosPago();
+		pp.imprimirFatura(m);
 	}
 
 	public static void main(String[] args) throws ParseException {
@@ -216,4 +221,3 @@ public class Telefonia {
 
 	}
 }
-

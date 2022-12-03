@@ -40,7 +40,7 @@ public class Chamada {
 	
 	
 	
-	@Override
+	/*@Override
 	public int hashCode() {
 		return Objects.hash(data, duracao);
 	}
@@ -55,7 +55,7 @@ public class Chamada {
 			return false;
 		Chamada other = (Chamada) obj;
 		return Objects.equals(data, other.data) && Objects.equals(duracao, other.duracao);
-	}
+	}*/
 
 	public static void main(String[] args) {
 		GregorianCalendar ca = new GregorianCalendar();
