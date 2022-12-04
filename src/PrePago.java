@@ -2,32 +2,51 @@ import java.util.GregorianCalendar;
 
 public class PrePago extends Assinante {
 
+	//Atributos Prepago filho do assinante
 	private float creditos;
 	private Integer numRecargas;
 	private Recarga[] recargas;
 
+	
+	//Sobrecarga do construtor (boa prática)
 	public PrePago() {
 
 	}
 
-	public PrePago(long cpf, String nome, int numero) {
+	//Construtor do PrePago 
+	public PrePago(long cpf, String nome, int numero) 
+	{
 		super(cpf, nome, numero);
 		this.creditos = creditos;
 		this.numRecargas = 30;
 		this.recargas = new Recarga[numRecargas];
 	}
 
-	void fazerChamada(GregorianCalendar data, int duracao) {
-		if (this.creditos > 0 && this.numChamadas > 0 && duracao < this.creditos) {
+	
+	//Método fazer chamada, recebe data (gregorian calendar) e duracao da chamada.
+	//Faz uma condição de pré-existencia da chamada, instancia e aloca os dados no vetor chamada 
+	//Conforme as chamadas são feitas, a quantidade de chamadas possiveis é decrementada
+	//E os créditos são atualizados
+	void fazerChamada(GregorianCalendar data, int duracao) 
+	{
+		if (this.creditos > 0 && this.numChamadas > 0 && duracao < this.creditos) 
+		{
 			this.chamadas[this.numChamadas - 1] = new Chamada(data, duracao);
 			this.numChamadas -= 1;
 			this.creditos -= (duracao * 1.45f);
 			System.out.println("Chamada realizada com sucesso!!!");
-		} else {
+		} else 
+		{
 			System.out.println("Não é possível realizar a chamada!!!");
 		}
 	}
 
+	
+	//Metodo para recarregar prepago.
+	//Verifica se pode realizar recarga
+	//Instancia a recarga e guarda no vetor recarga
+	//Decrementa o numero possivel de proximas recargas
+	//Aumenta a quantidade de creditos com base no valor 
 	public void recarregar(GregorianCalendar data, float valor) {
 
 		if (numRecargas > 0) {
@@ -39,20 +58,31 @@ public class PrePago extends Assinante {
 		}
 	}
 
-	void imprimirFatura(int mes) {
+	
+	//Recebe um mes para exibir fatura
+	//Percorre os vetores recargas e chamadas e compara o mes recebido como parametro 
+	//com o mesreferente a data da chamada e recarga
+	void imprimirFatura(int mes) 
+	{
 		float r = 0;
-		for (int i = 0; i < recargas.length; i++) {
-			if (this.recargas[i] != null) {
-				if (this.recargas[i].getData().get(GregorianCalendar.MONTH) == mes) {
+		for (int i = 0; i < recargas.length; i++) 
+		{
+			if (this.recargas[i] != null) 
+			{
+				if (this.recargas[i].getData().get(GregorianCalendar.MONTH) == mes) 
+				{
 					System.out.println(this.recargas[i]);
 					r = r + recargas[i].getValor();
 				}
 			}
 		}
 		float c = 0;
-		for (int i = 0; i < chamadas.length; i++) {
-			if (this.chamadas[i] != null) {
-				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
+		for (int i = 0; i < chamadas.length; i++) 
+		{
+			if (this.chamadas[i] != null) 
+			{
+				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) 
+				{
 					System.out.println(this.chamadas[i]);
 					c = c + this.chamadas[i].getDuracao() * 1.45f;
 
@@ -67,23 +97,4 @@ public class PrePago extends Assinante {
 
 }
 
-/*
- * 
- * public static void main(String[] args) {
- * 
- * PrePago prep = new PrePago(123, "dan", 123412);
- * 
- * prep.recarregar(new GregorianCalendar(2020, 05, 04), 45); prep.recarregar(new
- * GregorianCalendar(2020, 05, 04), 1000); prep.recarregar(new
- * GregorianCalendar(2020, 05, 04), 10); prep.recarregar(new
- * GregorianCalendar(2020, 11, 04), 1000);
- * 
- * prep.fazerChamada(new GregorianCalendar(2020, 05, 05), 5);
- * prep.fazerChamada(new GregorianCalendar(2020, 07, 05), 6);
- * prep.fazerChamada(new GregorianCalendar(2020, 06, 05), 1);
- * prep.fazerChamada(new GregorianCalendar(2020, 05, 05), 7);
- * prep.fazerChamada(new GregorianCalendar(2020, 05 - 1, 05), 6);
- * prep.fazerChamada(new GregorianCalendar(2020, 07 - 1, 05), 2);
- * 
- * prep.imprimirFatura(05);
- */
+

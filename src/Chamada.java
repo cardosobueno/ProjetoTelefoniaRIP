@@ -6,43 +6,57 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+
 public class Chamada {
 	private GregorianCalendar data;
 	private Integer duracao;
+	//Formatacao da data para atender normas ABNT
 	static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+	//Sobrecarga. Boa pratica 
 	public Chamada() {
 
 	}
 
-	public Chamada(GregorianCalendar data, Integer duracao) {
+	//Construtor chamada
+	public Chamada(GregorianCalendar data, Integer duracao) 
+	{
 		super();
 		this.data = data;
 		this.duracao = duracao;
 	}
-
-	public GregorianCalendar getData() {
+	//retorna a data.Usamos nas classes Prepago e Pospago
+	//Metodo Imprimirfaturas
+	public GregorianCalendar getData() 
+	{
 		return data;
 	}
-
-	public Integer getDuracao() {
+	//Retorna duracao
+	public Integer getDuracao() 
+	{
 		return duracao;
 	}
 
+	//Retorna dados da chamada na formatacao adequada
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 
 		return "Data da Chamada: " + sdf.format(data.getTime()) + " Duração da chamada: " + duracao + " minutos";
 	}
 
-	/*
+	
+	
+	
+	/* codigo alienigina do felipe
+	 * 
 	 * @Override public int hashCode() { return Objects.hash(data, duracao); }
 	 * 
 	 * @Override public boolean equals(Object obj) { if (this == obj) return true;
 	 * if (obj == null) return false; if (getClass() != obj.getClass()) return
 	 * false; Chamada other = (Chamada) obj; return Objects.equals(data, other.data)
 	 * && Objects.equals(duracao, other.duracao); }
-	 */
+	
 
 	public static void main(String[] args) {
 		GregorianCalendar ca = new GregorianCalendar();
@@ -67,5 +81,5 @@ public class Chamada {
 		System.out.println(c);
 
 	}
-
+ */
 }
