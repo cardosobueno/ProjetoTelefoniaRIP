@@ -1,29 +1,39 @@
 public class Assinante {
 
-    private long cpf;
-    private String nome;
-    private int numero;
-    protected Chamada[] chamadas;
-    protected Integer numChamadas;
+	//Dados de assinante
+	private long cpf;
+	private String nome;
+	private int numero;
+	protected Chamada[] chamadas;
+	protected Integer numChamadas;
 
-    public Assinante(long cpf, String nome, int numero, Integer numChamadas) {
-    	this.numChamadas = numChamadas;
-        this.chamadas = new Chamada[numChamadas];
-        this.nome = nome;
-        this.cpf = cpf;
-        this.numero = numero;
-        
-    }
+	public Assinante() {
+	}
 
+	//Construtor assinante (cpf, nome e numero)
+	public Assinante(long cpf, String nome, int numero) 
+	{
+		this.numChamadas = 25;
+		this.chamadas = new Chamada[numChamadas];
+		this.nome = nome;
+		this.cpf = cpf;
+		this.numero = numero;
 
+	}
 
-    public long getCpf() 
-    {
-        return this.cpf;
-    }
+	//Retorna CPF do assinante para o método localizarPrePago/localizarPosPago
+	public long getCpf() 
+	{
+		return this.cpf;
+	}
 
-    public String toString()
-    {
-        return "Nome: " + this.nome + "; Cpf: " + this.cpf + "; Numero: " + this.numero + "; Chamadas: " + this.chamadas + "; Número de chamadas: " + this.numChamadas;
-    }
+	
+	//Retorno toString padrao. Dados do assinante
+	@Override
+	public String toString() 
+	{
+		return "Nome=" + this.nome + ", CPF=" + this.cpf +  ", Número de Celular=" + this.numero + ", Chamadas Disponíveis="
+				+ numChamadas;
+	}
+
 }
