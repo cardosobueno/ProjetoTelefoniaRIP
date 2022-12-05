@@ -96,9 +96,10 @@ public class Telefonia {
 			}
 		} catch (java.lang.NullPointerException ex) {
 			System.out.println("insira um dado válido e tente novamente!!!\n");
+			
 		} catch (java.util.InputMismatchException ex) {
-			this.numPosPago = null;
-			this.numPrePago= null;
+			//this.numPosPago = null;
+			//this.numPrePago= null;
 			System.out.println("insira um dado válido e tente novamente!!!\n");
 			
 		}
@@ -287,8 +288,33 @@ public class Telefonia {
 
 	public static void main(String[] args) throws ParseException {
 
+		
 		Scanner sc = new Scanner(System.in);
 		Telefonia tel = new Telefonia();
+
+		try {
+			System.out.println("Digite a quantidade de assinantes (Pré-Pago/Pós-Pago) que deseja cadastrar: ");
+			System.out.print("Pré-Pago: ");
+			tel.numPrePago = sc.nextInt();
+			if (tel.numPrePago > 30 || tel.numPrePago <= 0) {
+				System.out.println("Limite de cadastros é de 0 a 30 , tente novamente!!!\n ");
+				Telefonia.main(args);
+			}
+			System.out.print("Pós-Pago: ");
+			tel.numPosPago = sc.nextInt();
+			if (tel.numPosPago > 30 || tel.numPosPago < 0) {
+				System.out.println("Limite de cadastros é de 0 a 30 , tente novamente!!!\n ");
+				Telefonia.main(args);
+			}
+		} catch (java.util.InputMismatchException ex) {
+			System.out.println("Insira um dado válido e tente novamente!!!\n");
+			Telefonia.main(args);
+			
+		} catch (java.lang.ArrayIndexOutOfBoundsException el) {
+			System.out.println("Insira um dado válido e tente novamente!!!\n");
+			Telefonia.main(args);
+		} 
+		
 		int op = 0;
 		do {
 			try {
@@ -327,9 +353,12 @@ public class Telefonia {
 					break;
 				}
 			} catch (java.util.InputMismatchException ex) {
-				System.out.println("Insira um dado válido e tente novamente!!!");
+				System.out.println("Erro. Programa reiniciando...");
+				main(null);
+				
 			} catch (java.lang.ArrayIndexOutOfBoundsException el) {
 				System.out.println("Insira um dado válido e tente novamente!!!");
+				
 			}
 
 		} while (op != 6);
