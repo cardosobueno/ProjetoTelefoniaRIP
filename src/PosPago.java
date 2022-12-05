@@ -1,5 +1,3 @@
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class PosPago extends Assinante {
@@ -7,88 +5,65 @@ public class PosPago extends Assinante {
 	private float assinatura;
 
 	public PosPago() {
-
 	}
 
-	public PosPago(long cpf, String nome, int numero, float assinatura) 
-	{
+	// Construtor da classe
+	public PosPago(long cpf, String nome, int numero, float assinatura) {
 		super(cpf, nome, numero);
 		this.assinatura = assinatura;
 	}
-	
-	//Método fazer chamada, recebe data (gregorian calendar) e duracao da chamada.
-	//Faz uma condição de pré-existencia da chamada, instancia e aloca os dados no vetor chamada 
-	//Conforme as chamadas são feitas, a quantidade de chamadas possiveis é decrementada
-	public void fazerChamada(GregorianCalendar data, int duracao) 
-	{
+
+	// Método fazer chamada, recebe data (gregorian calendar) e duracao da chamada.
+	// Faz uma condição de pré-existencia da chamada, instancia e aloca os dados no
+	// vetor chamada
+	// Conforme as chamadas são feitas, a quantidade de chamadas possiveis é
+	// decrementada
+	public void fazerChamada(GregorianCalendar data, int duracao) {
 
 		if (numChamadas > 0) {
 			this.chamadas[this.numChamadas - 1] = new Chamada(data, duracao);
 			this.numChamadas = this.numChamadas - 1;
+			System.out.println("Chamada realizada com sucesso!!!\n");
 		} else {
-			System.out.println("Não pode realizar a chamada...");
+			System.out.println("Não pode realizar a chamada...\n");
 		}
 	}
-	
-	
-	//Recebe um mes para exibir fatura
-	//Percorre o vetore chamadas e compara o mes recebido como parametro 
-	//com o mes referente a data da chamada
-	//No final, atualiza o valor das chamadas e soma a assinatura com o total de chamadas
-	void imprimirFatura(int mes) 
-	{
+
+	// Recebe um mes para exibir fatura
+	// Percorre o vetore chamadas e compara o mes recebido como parametro
+	// com o mes referente a data da chamada
+	// No final, atualiza o valor das chamadas e soma a assinatura com o total de
+	// chamadas
+	public void imprimirFatura(int mes) {
 		float c = 0;
-		for (int i = 0; i < chamadas.length; i++) 
-		{
-			if (this.chamadas[i] != null) 
-			{
-				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) 
-				{
+		for (int i = 0; i < chamadas.length; i++) {
+			if (this.chamadas[i] != null) {
+				if (this.chamadas[i].getData().get(GregorianCalendar.MONTH) == mes) {
 					System.out.println(this.chamadas[i]);
 					c = c + this.chamadas[i].getDuracao() * 1.04f;
 				}
 			}
 		}
-		System.out.printf("Valor gasto nas chamadas: %.2f %n", c );
+		System.out.printf("Valor gasto nas chamadas: %.2f %n", c);
 		System.out.printf("Valor total assinatura + chamadas: %.2f %n", c + this.assinatura);
 	}
-
 }
 
-
-/* Teste para percorrer vetor e realizar chamada
-
-
-	public void mostrarChamadas() {
-		int c = 0;
-		for (int i = 0; i < 25; i++) {
-			if (this.chamadas[i] != null) {
-				System.out.println(this.chamadas[i]);
-				c = c + 1;
-			}
-		}
-		System.out.println("Quantidade de chamadas disponíveis: " + (10 - c));
-	}
-*/
-
-
-
-
-//		GregorianCalendar c = chamadas[numChamadas].getData();
-//		for (int i = 0; i < chamadas.length; i++) {
-
-//			if (chamadas[numChamadas].getData().get(GregorianCalendar.MONTH) == mes) {
-//				numChamadas -= 1;
-//				System.out.println(chamadas[i]);
-//				System.out.println(chamadas[numChamadas].getData().get(GregorianCalendar.MONTH));
-
-//			} else {
-//				System.out.println("Não to funcionando!!!!!!");
-//			}
-
-//		}
 /*
+ * Teste para percorrer vetor e realizar chamada public void mostrarChamadas() {
+ * int c = 0; for (int i = 0; i < 25; i++) { if (this.chamadas[i] != null) {
+ * System.out.println(this.chamadas[i]); c = c + 1; } }
+ * System.out.println("Quantidade de chamadas disponíveis: " + (10 - c)); }
+ * GregorianCalendar c = chamadas[numChamadas].getData(); for (int i = 0; i <
+ * chamadas.length; i++) {
  * 
+ * if (chamadas[numChamadas].getData().get(GregorianCalendar.MONTH) == mes) {
+ * numChamadas -= 1; System.out.println(chamadas[i]);
+ * System.out.println(chamadas[numChamadas].getData().get(GregorianCalendar.
+ * MONTH));
+ * 
+ * } else { System.out.println("Não funcionando!!!!!!"); } 
+ * }* 
  * public static void main(String[] args) throws ParseException {
  * 
  * PosPago p = new PosPago(123, "dfds", 5020, 232);

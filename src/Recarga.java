@@ -3,42 +3,33 @@ import java.util.GregorianCalendar;
 
 public class Recarga {
 
-	
 	private float valor;
 	private GregorianCalendar data;
 	//Formatacao da data para atender normas ABNT
 	static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 	public Recarga() {
-
 	}
 	//constructor recarga
 	public Recarga(GregorianCalendar data, float valor) 
 	{
-
 		this.data = data;
 		this.valor = valor;
-
 	}
-	
 	//Retorna data 
 	public GregorianCalendar getData() 
 	{
 		return data;
 	}
-
 	//Retorna valor, usado para somar valor total de recargas
 	public float getValor() 
 	{
 		return valor;
 	}
-
 	//Retorna dados da recarga na formatacao adequada
 	@Override
 	public String toString() {
 		return "Data da Recarga: " + sdf.format(data.getTime()) + " Valor da Recarga: " + valor;
 	}
-
 }
 /*
 ________$$$$

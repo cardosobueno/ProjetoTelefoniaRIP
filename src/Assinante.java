@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Assinante {
 
 	//Dados de assinante
@@ -9,13 +7,15 @@ public class Assinante {
 	protected Chamada[] chamadas;
 	protected Integer numChamadas;
 
+	//Sobrecarga. Boa pratica 
 	public Assinante() {
 	}
 
+	
 	//Construtor assinante (cpf, nome e numero)
 	public Assinante(long cpf, String nome, int numero) 
 	{
-		this.numChamadas = 12;
+		this.numChamadas = 25;
 		this.chamadas = new Chamada[numChamadas];
 		this.nome = nome;
 		this.cpf = cpf;
@@ -34,7 +34,7 @@ public class Assinante {
 	@Override
 	public String toString() 
 	{
-		return "Assinante: CPF=" + cpf + ", Nome=" + nome + ", Numero=" + numero + ", Numeros de Chamadas Restantes="
+		return "Nome=" + this.nome + ", CPF=" + this.cpf +  ", Número de Celular=" + this.numero + ", Chamadas Disponíveis="
 				+ numChamadas;
 	}
 
